@@ -53,6 +53,16 @@ router.put('/:id', async (req:Request, res:Response) => {
     } catch (error) {
         res.status(500).send(error);
     }
+});
+
+router.delete('/:id', async (req:Request, res:Response) => {
+    try {
+        const filter = {id: req.params.id}
+        await Puppie.findOneAndDelete(filter)
+        res.status(204)
+    } catch (error) {
+        res.status(500).send(error); 
+    }
 })
 
 
