@@ -1,11 +1,12 @@
 import express , {Request, Response}from 'express';
 import { Puppie, Ipuppie} from './models';
+import  {getAll}  from './controllers';
 const router = express.Router();
 
-const getAll = async()=>{
-    const puppies = await Puppie.find()
-    return puppies
-}
+// const getAll = async()=>{
+//     const puppies = await Puppie.find()
+//     return puppies
+// }
 
 router.get('/', async(_req:Request, res:Response ) => {
     try {
