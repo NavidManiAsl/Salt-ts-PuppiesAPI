@@ -1,7 +1,7 @@
-import express , {Request, Response}from 'express';
+import express , {Request, Response, Router}from 'express';
 import { Puppie, Ipuppie} from './models';
 import  {getAll}  from './controllers';
-const router = express.Router();
+const router:Router = express.Router();
 
 // const getAll = async()=>{
 //     const puppies = await Puppie.find()
@@ -30,6 +30,20 @@ router.get('/:id', async (req:Request, res:Response)=>{
         res.status(500).send(error)
     } 
 });
+
+router.post('/', async (req:Request, res:Response)=>{
+    const puppie = new Puppie({...req.body})
+    try {
+        if (puppie.id && puppie.name) {
+           await  puppie.save()
+           res.status(201).send(`Data has been saved at the database : ${puppie}`)
+        } else {
+            res.status(400).send('invalid request')
+        }
+    } catch (error) {
+      res.status(500).send(error);  
+    }
+})
 
 
 export default router;
