@@ -9,7 +9,7 @@ export interface Ipuppie {
 }
 
 const puppieSchema = new Schema<Ipuppie>({
-    id: { type:Number, required: true },
+    id: { type:Number, required: true, immutable: true},
     breed: { type: String, required: false },
     name: { type: String, required: true },
     bd: { type:String, required: false }

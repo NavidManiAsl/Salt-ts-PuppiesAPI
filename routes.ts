@@ -3,11 +3,6 @@ import { Puppie, Ipuppie} from './models';
 import  {getAll}  from './controllers';
 const router:Router = express.Router();
 
-// const getAll = async()=>{
-//     const puppies = await Puppie.find()
-//     return puppies
-// }
-
 router.get('/', async(_req:Request, res:Response ) => {
     try {
        
@@ -43,7 +38,23 @@ router.post('/', async (req:Request, res:Response)=>{
     } catch (error) {
       res.status(500).send(error);  
     }
+});
+
+router.put('/:id', async (req:Request, res:Response) => {
+    try {
+        if(req.body) {
+            const filter ={id:req.params.id}
+            const update = {...req.body}
+            await Puppie.findOneAndUpdate(filter, update)
+            res.status(201).send('The document has been successfully modified')
+        } else{
+            res.status(400).send('invalid request')
+        }
+    } catch (error) {
+        res.status(500).send(error);
+    }
 })
+
 
 
 export default router;
